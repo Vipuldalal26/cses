@@ -1,0 +1,20 @@
+# Build folder
+build/
+
+# macOS system files
+.DS_Store
+
+# Debug symbol files
+*.dSYM/
+
+# Compiled binaries
+*.exe
+*.out
+*.o
+*.obj
+*.a
+*.so
+*.dll
+
+# Backup files
+*~

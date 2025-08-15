@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include "bits/stdc++.h"
 using namespace std ;
 using  vint= vector<int> ;
 #define  mod 1000000007 ;
@@ -32,6 +32,7 @@ void fastio()
 void solve()
 {
     ll n ;
+    cout<<"Enter n" ;
     cin>>n;
     cout<<n<<" " ;
     while(n>1)
@@ -49,8 +50,9 @@ void solve()
 int main()
 {
     fastio() ;
-    int t=1;
-    //cin>>t ;
+    int t;
+    cout<<"Enter the value of t"<<endl ;
+    cin>>t ;
     while(t--)
     {
         solve() ;
