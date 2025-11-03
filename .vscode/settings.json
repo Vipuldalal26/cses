@@ -3,6 +3,5 @@
         "limits": "cpp",
         "valarray": "cpp",
         "algorithm": "cpp"
-    },
-    "C_Cpp.errorSquiggles": "disabled"
+    }
 }
