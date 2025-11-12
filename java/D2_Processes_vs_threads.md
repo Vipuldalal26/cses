@@ -1,7 +1,6 @@
 📘 Complete Curriculum: _Processes vs Threads (and surrounding concepts) for a Software Engineer_
 -------------------------------------------------------------------------------------------------
 
-I’ll teach you each topic like a teacher would, one at a time — with diagrams and examples that match your work.
 
 ### **Module 1 — The Foundation**
 
@@ -116,3 +115,80 @@ I’ll teach you each topic like a teacher would, one at a time — with diagram
     *   Through container, process, thread, JVM, controller, DB
         
     *   Back to response
+
+
+🧠 Topic 1 : What Happens When You Run a Program
+------------------------------------------------
+
+### 1️⃣ Program vs Process
+
+TermMeaning**Program**A file on disk that contains machine instructions (code + data). It’s _inactive_.**Process**A running instance of that program created by the operating system. It’s _alive_ and executing.
+
+### 2️⃣ Steps When You Run a Program
+
+1.  java -jar esp-bpo-service.jar
+    
+2.  **OS loads the program**
+    
+    *   Copies machine instructions from disk → RAM.
+        
+    *   Loads needed libraries (e.g., libjvm.so, libc.so).
+        
+3.  **OS creates a process**
+    
+    *   Gives it a **PID** (process ID).
+        
+    *   Stores info: program path, user, state, open files, network ports, environment vars.
+        
+    *   Adds entry to its **process table**.
+        
+4.  RegionPurpose**Code / Text**The compiled instructions**Data**Global/static variables**Heap**Dynamically created objects (new)**Stack (per thread)**Local variables + function calls
+    
+5.  **Creates main thread**
+    
+    *   The first thread that starts running your code.
+        
+    *   For Java: executes main() inside the JVM.
+        
+6.  **CPU executes instructions**
+    
+    *   The scheduler gives CPU time to this thread.
+        
+    *   The process may later create more threads or child processes.
+        
+7.  **Process terminates**
+    
+    *   On normal exit or crash, OS cleans up memory and entries.
+        
+    *   All threads in it die together.
+        
+
+### 3️⃣ Example in Your World (Spring Boot + Kubernetes)
+
+LayerWhat Happens**Kubernetes Pod**The container runtime (Docker/Containerd) tells Linux to start a new process inside an isolated namespace.**That process**It’s your JVM process.**Inside JVM**Spring Boot creates threads for Tomcat/Netty, HikariCP, GC, etc.**Threads run**Handle HTTP requests, DB I/O, background tasks.
+
+So the hierarchy is:
+
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   Pod (namespace)   └── Container        └── JVM Process (PID)             ├── Main Thread             ├── GC Thread             ├── Tomcat Worker Threads             └── HikariCP Threads   `
+
+### 4️⃣ Visualization
+
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   +---------------------------------------------+  |           Operating System Kernel           |  |---------------------------------------------|  | Process Table                               |  |   ├─ PID 101 : java (JVM)                   |  |   |     ├─ Thread 1 : main                  |  |   |     ├─ Thread 2 : GC                    |  |   |     ├─ Thread 3 : Tomcat worker #1     |  |   |     └─ Thread 4 : DB connection pool    |  |   └─ PID 200 : nginx                        |  +---------------------------------------------+   `
+
+### 5️⃣ Commands to View It
+
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   ps -ef                 # list processes  ps -eLf | grep java    # show threads inside a process  top -H -p         # per-thread CPU usage   `
+
+### 6️⃣ Key Takeaways
+
+*   Every running app = a **process**.
+    
+*   A process can have **many threads** (lightweight executors).
+    
+*   OS manages their **memory, CPU, and scheduling**.
+    
+*   In containers, usually **one main process per container**.
+    
+*   Spring Boot → one JVM process + many threads.
+    
+*   When that process ends, all threads inside die.
