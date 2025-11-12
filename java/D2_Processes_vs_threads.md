@@ -117,7 +117,7 @@
     *   Back to response
 
 
-# 🧠 Topic 1 – What Happens When You Run a Program
+# 🧠 Module 1 , Topic 1 – What Happens When You Run a Program
 
 ## 1️⃣ Program vs Process
 | Term | Meaning |
